@@ -21,7 +21,7 @@ typedef struct queue
 	int front, rear, size;
 } queue;
 
-queue *inti_queue(int size)
+queue *init_queue(int size)
 {
 	queue *q = calloc(1, sizeof(queue));
 	q->data = calloc(size, sizeof(node *));
@@ -36,7 +36,7 @@ node *dequeue(queue *q) { return q->data[q->front++]; }
 
 void resolve_dependencies(service_graph *g, void (*start_service)(node *))
 {
-	queue *q = inti_queue(g->node_count);
+	queue *q = init_queue(g->node_count);
 	for (int i = 0; i < g->node_count; i++)
 	{
 		if (g->nodes[i]->in_degree == 0)
