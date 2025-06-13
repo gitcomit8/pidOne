@@ -52,7 +52,7 @@ void handle_command(const char *cmd, const char *arg, int client_fd)
 	}
 }
 
-void run_control_socket()
+void *run_control_socket()
 {
 	int sock = socket(AF_UNIX, SOCK_STREAM, 0);
 	if (sock < 0)
