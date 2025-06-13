@@ -59,3 +59,4 @@ int parse_service_file(const char *path, service_conf *svc)
 	}
 	fclose(f);
 	return 0;
+}
