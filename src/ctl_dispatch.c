@@ -6,18 +6,19 @@
 #include <unistd.h>
 #include <errno.h>
 #include <signal.h>
+#include "ctl_dispatch.h"
 
 #define SOCK_PATH "/run/pidone.sock"
 #define MAX_CMDLEN 128
-#define MAX_ARGS 2
 
-// Placeholder: Add real service control logic here
+extern void start_service_by_name(const char *name); // To be implemented
+
 void handle_command(const char *cmd, const char *arg, int client_fd)
 {
 	if (strcmp(cmd, "start") == 0)
 	{
 		dprintf(client_fd, "Starting service: %s\n", arg);
-		// TODO: call supervisor to start service
+		start_service_by_name(arg);
 	}
 	else if (strcmp(cmd, "stop") == 0)
 	{
@@ -32,22 +33,18 @@ void handle_command(const char *cmd, const char *arg, int client_fd)
 	else if (strcmp(cmd, "status") == 0)
 	{
 		dprintf(client_fd, "Status: (not yet implemented)\n");
-		// TODO: show service/process tree
 	}
 	else if (strcmp(cmd, "enable") == 0)
 	{
 		dprintf(client_fd, "Enabled service: %s\n", arg);
-		// TODO: enable service in boot graph
 	}
 	else if (strcmp(cmd, "disable") == 0)
 	{
 		dprintf(client_fd, "Disabled service: %s\n", arg);
-		// TODO: disable service in boot graph
 	}
 	else if (strcmp(cmd, "emergency") == 0)
 	{
 		dprintf(client_fd, "Entering emergency shell...\n");
-		// TODO: spawn rescue shell
 	}
 	else
 	{
